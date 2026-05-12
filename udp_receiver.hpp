@@ -1,29 +1,6 @@
 // udp_receiver.hpp
 // Tyler's component — drop this header into your OpenGL project.
 //
-// Listens on a UDP port for packets from udp_bridge.py and exposes
-// roll/pitch/yaw, x/y/z position, and raw IMU values.
-//
-// Packet format expected (from udp_bridge.py):
-//   "roll,pitch,yaw,x,y,z,ax,ay,az,gx,gy,gz\n"
-//   Angles in degrees. Position in metres. Accel in g. Gyro in deg/s.
-//
-// Usage (in your OpenGL project)
-// --------------------------------
-//   #include "udp_receiver.hpp"
-//
-//   UDPReceiver imu(5005);   // port must match --udp-port in udp_bridge.py
-//   imu.start();             // call once before render loop
-//
-//   // Inside render loop:
-//   IMUData d = imu.getData();
-//   if (d.valid) {
-//       // d.roll, d.pitch, d.yaw  → orientation (degrees)
-//       // d.x, d.y, d.z           → position (metres from start)
-//   }
-//
-//   imu.stop();   // call on shutdown
-//
 // Dependencies: none (uses platform sockets + C++11 threads)
 // Windows: links against Ws2_32 automatically via #pragma comment
 
@@ -183,31 +160,4 @@ private:
     }
 };
 
-// ── Quick usage example (remove before shipping) ──────────────────────────────
-//
-//  int main() {
-//      UDPReceiver imu(5005);
-//      if (!imu.start()) return 1;
-//
-//      // --- OpenGL render loop ---
-//      while (running) {
-//          IMUData d = imu.getData();
-//          if (d.valid) {
-//              glMatrixMode(GL_MODELVIEW);
-//              glLoadIdentity();
-//
-//              // Position: translate box in world space (metres → scale as needed)
-//              float scale = 5.0f;   // tune this so movement feels natural on screen
-//              glTranslatef(d.x * scale, d.y * scale, d.z * scale);
-//
-//              // Orientation: rotate box
-//              glRotatef(d.yaw,   0, 1, 0);   // yaw   around Y
-//              glRotatef(d.pitch, 1, 0, 0);   // pitch around X
-//              glRotatef(d.roll,  0, 0, 1);   // roll  around Z
-//
-//              drawBox();
-//          }
-//          swapBuffers();
-//      }
-//      imu.stop();
-//  }
+
