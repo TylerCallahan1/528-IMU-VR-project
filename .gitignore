@@ -1,0 +1,25 @@
+# Visual Studio
+.vs/
+x64/
+Debug/
+Release/
+*.obj
+*.exe
+*.pdb
+*.ilk
+*.idb
+*.user
+*.suo
+*.opensdf
+*.sdf
+ipch/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
